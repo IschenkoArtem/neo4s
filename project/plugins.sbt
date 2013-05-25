@@ -1,0 +1,1 @@
+addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.5.0-SNAPSHOT" from "https://oss.sonatype.org/content/repositories/snapshots/com/github/mpeltonen/sbt-idea_2.9.2_0.12/1.5.0-SNAPSHOT/sbt-idea-1.5.0-SNAPSHOT.jar")
