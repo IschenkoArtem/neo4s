@@ -1,9 +1,8 @@
-import java.net._;
-import java.io._
+
 ;
 
 object Hi {
   def main(args: Array[String]) = {
-    (new Connector()).node(1)
+    new Connector().query("START a = node(0) RETURN a.name", Map())
   }
 }
