@@ -8,6 +8,9 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+# IDEA specific
+.idea/*
+/.idea_modiles/*
 
 # Scala-IDE specific
 .scala_dependencies
