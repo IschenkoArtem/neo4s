@@ -7,3 +7,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "latest.integration" % "
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "latest.integration"
 
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.2.0"
+
+libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.2.0"
+
+libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.2.1"
