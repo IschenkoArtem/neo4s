@@ -1,3 +1,4 @@
+import java.io.InputStream
 import java.net.{HttpURLConnection, URLConnection, URL}
 import scala.io.Source
 
@@ -18,22 +19,24 @@ class Connector {
     con.getInputStream
   }
 
-  def query(query: String, params: Map[String, String]) = {
-    System.setProperty("http.keepAlive", "false");
+  def query(query: String, params: Map[String, String]): InputStream = {
+    System.setProperty("http.keepAlive", "false")
     val con: URLConnection = new URL(s"$host$db/data/cypher").openConnection
     con.setDoOutput(true)
     con.addRequestProperty("Accept", "application/json")
     con.addRequestProperty("Content-Type", "application/json")
+    con.addRequestProperty("X-Stream", "true")
     val joinedParams = params.map(p => "\"" + p._1 + "\":\"" + p._2 + "\"").mkString(",")
     val requestBody = s"""{ "query":"$query", "params":{$joinedParams} }"""
-    val os = con.getOutputStream()
+    val os = con.getOutputStream
     os.write(requestBody.getBytes(charset))
-    os.close
-    println(requestBody)
+    os.close()
     try {
-      println(Source.fromInputStream(con.getInputStream).getLines().mkString("\n"))
+      con.getInputStream
     } catch {
-      case e: java.io.IOException => println(Source.fromInputStream(con.asInstanceOf[HttpURLConnection].getErrorStream).getLines().mkString("\n"))
+      case e: java.io.IOException => {
+        throw new Exception(Source.fromInputStream(con.asInstanceOf[HttpURLConnection].getErrorStream).getLines().mkString("\n"))
+      }
     }
   }
 }
