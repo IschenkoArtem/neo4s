@@ -1,6 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import java.net.{HttpURLConnection, URLConnection, URL}
 import scala.io.Source
 
@@ -16,7 +15,7 @@ class Connector {
 
   /**
    * Return information about single node specified by id.
-   * @param id
+   * @param id node id
    * @return
    */
   def node(id: Int) = {
@@ -43,7 +42,7 @@ class Connector {
 
   /**
    * Executes several statements in one transaction. Implementation uses "query" method..
-   * @param statements
+   * @param statements collection of queries and it's parameters
    * @return
    */
   def statements(statements:Map[String,Map[String,String]]) = {
@@ -62,8 +61,8 @@ class Connector {
    * Simple implementation of query execution. Because no streaming and continuous parsing is required this method
    * reads hole response and returns single value stored in "data" represented as string.
    * Usual usage is for query like "...RETURN count(...)"
-   * @param query
-   * @param params
+   * @param query cypher query as prepared statement
+   * @param params params for prepared statement
    * @return String
    */
   def getSimpleResult(query: String, params: Map[String, String]) = {
@@ -92,7 +91,7 @@ class Connector {
 
   /**
    * Creates and opens connection for specified url and sends request body.
-   * @param url
+   * @param url URL
    * @param body - request body, should be JSON
    * @return
    */
