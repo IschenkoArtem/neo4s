@@ -40,10 +40,11 @@ class Connector {
   }
   def getSimpleResult(query: String, params: Map[String, String]) = {
     val result = Source.fromInputStream(this.query(query, params)).getLines().mkString("")
-    println(result)
     val mapper = new ObjectMapper()
     mapper.registerModule(DefaultScalaModule)
-    mapper.readValue(result,classOf[SResult]).data.head.head
+    val value = mapper.readValue(result, classOf[SResult])
+    println(mapper.writeValueAsString(value))
+    value.data.head.head
   }
   private def read(con:URLConnection) = {
     try {
